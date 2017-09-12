@@ -1,0 +1,34 @@
+server:
+  port: 8082
+
+spring:
+#  rabbitmq:
+##    broker-url: tcp://127.0.0.1:15672
+#    username: guest
+#    password: guest
+#    addresses: tcp://127.0.0.1:15672
+
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: tasktopic
+          binder: rabbit1
+      binders:
+        rabbit1:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: 127.0.0.1
+                port: 5672
+                username: guest
+                password: guest
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          task: DEBUG
+          stream: DEBUG
